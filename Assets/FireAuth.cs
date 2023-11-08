@@ -15,7 +15,7 @@ public class FireAuth : MonoBehaviour
 
     void Start()
     {
-        //·Î±×ÀÎ »óÅÂ Ã¼Å© ÀÌº¥Æ® µî·Ï
+        //ë¡œê·¸ì¸ ìƒíƒœ ì²´í¬ ì´ë²¤íŠ¸ ë“±ë¡
         auth = FirebaseAuth.DefaultInstance;
         auth.StateChanged += OnChangedAuthState;
     }
@@ -40,7 +40,7 @@ public class FireAuth : MonoBehaviour
 
     void OnChangedAuthState(object sender, EventArgs e)
     {
-        //¸¸¾à¿¡ À¯ÀúÁ¤º¸ ÀÖÀ¸¸é
+        //ë§Œì•½ì— ìœ ì €ì •ë³´ ìˆìœ¼ë©´
         if (auth.CurrentUser != null)
         {
             print("Email : " + auth.CurrentUser.Email);
@@ -49,12 +49,12 @@ public class FireAuth : MonoBehaviour
             //FireDatabase.instance.myInfo.email = auth.CurrentUser.Email;
             //FireDatabase.instance.myInfo.fbId = auth.CurrentUser.UserId;
 
-            print("·Î±×ÀÎ »óÅÂ");
+            print("ë¡œê·¸ì¸ ìƒíƒœ");
         }
-        //±×·¸Áö ¾ÊÀ¸¸é
+        //ê·¸ë ‡ì§€ ì•Šìœ¼ë©´
         else
         {
-            print("·Î±×¾Æ¿ô »óÅÂ");
+            print("ë¡œê·¸ì•„ì›ƒ ìƒíƒœ");
         }
     }
 
@@ -62,55 +62,55 @@ public class FireAuth : MonoBehaviour
     {
         //if (inputEmail.text.Length == 0 || inputPassword.text.Length == 0)
         //{
-        //    print("Á¤º¸¸¦ ´Ù ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+        //    print("ì •ë³´ë¥¼ ë‹¤ ì…ë ¥í•´ ì£¼ì„¸ìš”");
         //    return;
         //}
-        StartCoroutine(SingIn("lokimve7@naver.com", "Guswls1225"));
+        StartCoroutine(SingIn("lokimve7@naver.com", "12345"));
     }
 
     IEnumerator SingIn(string email, string password)
     {
-        //È¸¿ø°¡ÀÔ½Ãµµ
+        //íšŒì›ê°€ì…ì‹œë„
         var task = auth.CreateUserWithEmailAndPasswordAsync(email, password);
-        //Åë½ÅÀÌ ¿Ï·áµÉ¶§±îÁö ±â´Ù¸°´Ù
+        //í†µì‹ ì´ ì™„ë£Œë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤
         yield return new WaitUntil(() => task.IsCompleted);
         if (task.Exception == null)
         {
-            print("È¸¿ø°¡ÀÔ ¼º°ø");
+            print("íšŒì›ê°€ì… ì„±ê³µ");
 
         }
         else
         {
-            print("È¸¿ø°¡ÀÔ ½ÇÆĞ : " + task.Exception);
+            print("íšŒì›ê°€ì… ì‹¤íŒ¨ : " + task.Exception);
         }
     }
 
     public void OnClickLogin()
     {
         
-        StartCoroutine(Login("lokimve7@naver.com", "Guswls1225"));
+        StartCoroutine(Login("lokimve7@naver.com", "12345"));
     }
 
     IEnumerator Login(string email, string password)
     {
-        //·Î±×ÀÎ ½Ãµµ
+        //ë¡œê·¸ì¸ ì‹œë„
         var task = auth.SignInWithEmailAndPasswordAsync(email, password);
-        //Åë½ÅÀÌ ¿Ï·áµÉ¶§±îÁö ±â´Ù¸°´Ù
+        //í†µì‹ ì´ ì™„ë£Œë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤
         yield return new WaitUntil(() => task.IsCompleted);
-        //¸¸¾à¿¡ Error°¡ ¾ø´Ù¸é
+        //ë§Œì•½ì— Errorê°€ ì—†ë‹¤ë©´
         if (task.Exception == null)
         {
-            print("·Î±×ÀÎ ¼º°ø");
+            print("ë¡œê·¸ì¸ ì„±ê³µ");
         }
         else
         {
-            print("·Î±×ÀÎ ½ÇÆĞ : " + task.Exception);
+            print("ë¡œê·¸ì¸ ì‹¤íŒ¨ : " + task.Exception);
         }
     }
 
     public void OnClickLogOut()
     {
-        //·Î±×¾Æ¿ô
+        //ë¡œê·¸ì•„ì›ƒ
         auth.SignOut();
     }
 }
