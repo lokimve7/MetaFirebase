@@ -70,6 +70,7 @@ public class FireAuth : MonoBehaviour
 
     IEnumerator SingIn(string email, string password)
     {
+        // 회원가입시 비밀번호 6개 이상이여야 된다.
         //회원가입시도
         var task = auth.CreateUserWithEmailAndPasswordAsync(email, password);
         //통신이 완료될때까지 기다린다
